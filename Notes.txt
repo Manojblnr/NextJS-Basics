@@ -1,0 +1,103 @@
+ref: https://www.youtube.com/watch?v=iNSf_7RyaXw
+
+1. create nextjs project:   npx create-next-app@latest
+
+2. To run :  npm run dev
+
+3. Project structure
+
+
+4. Routing:
+    Follows App router, so in the app folder
+
+5. Route setup for page:
+    /about
+    1. create folder name about and create page.js file
+
+    /dashboard/settings
+    1. foler name dashboard, and again folder name settings then file name page.jsx
+
+6. Layouts
+    using same layout for multiple pages, ex: the nav bar same for some pages
+    Ex:
+        To use same layout for settings page and dashboard page, 
+        create layout.jsx file in dashboard folder and add nav bar, 
+        Via props get children, use that children in the component.
+    
+    In the app folder layout.js file layout used in all the layouts part.
+
+7. Links
+    Import link from next js and use it in the component give redirect url as href attribute
+
+8. useRouter
+        other way navigate to pages
+        Ex:
+            If you want to go back to pages, settings page to dashboard page
+                1. import useRouter and save the return into router constant.
+                2. create back function in that use router.push('/dashboard)
+                3. In the back button add onClick event back function.
+            Note:
+            useRouter works in client component only make it use client
+
+9. Client and server component
+    For ref: https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns#when-to-use-server-and-client-components
+    Nextjs default takes every component as server component,
+    so we can't do the tasks in browser like button and form submit,
+    For that component needs to convert as client component, using "use client" string at top 
+
+10. Dynamic Routing
+    Means in the url, /blog/post/1,  blog, post this are static route it won't change, 
+    but id 1 will change based on the post id, this is Dynamic routing part
+    For achieve that:
+        let say in blog folder create folder name called [slug] then create page.jsx file,
+        so this url part is Dynamic, so if we enter the /blog/any-url it will redirect to this page
+
+    To get the url in component:
+        The page component, browser pass url params as props so destructure params and
+        the name we given is [slug], so that's the name for getting url
+        like this 
+            params.slug
+    
+    The way to get multiple Dynamic url:
+        Ex:
+            In the shop folder all the folder is going to come Dynamic url
+                /shop/Dynamic-url/Dynamic-url
+
+            For that create folder name [...slug]
+
+            To get the Dynamic url separately use indexing way like this <h4>url:{params.slug[0]} / {params.slug[1]}</h4>
+
+
+11. Route handler
+        create api folder and items folder in app in that route.jsx file, create async function name GET, 
+        It's get request method, we should use function name GET,
+        for return the response in nextjs we have to create :  return new Response('coming from server response')
+        For sending json response :  
+        return Response.json([
+            {title: 'title 1'},
+            {title: 'title 2'}
+        ])
+
+        For post method or other same way like above change the function name, if its post use POST
+
+12. Getting request data
+    In the url, we will send a data, to get this there is two way
+        1. In the GET function req params from that we can get the data 
+            Ex: browser url:  http://localhost:3000/api/items?type=mobile
+                This is query param : ?type=mobile
+            To get this:
+                In the api/items/route.jsx file GET function 
+                    code: const type = req.nextUrl.searchParams.get('type')
+                    Now the type value mobile is saved in type const
+        
+        2. In the POST function req params from that we can get the data
+            To send data to post request method
+                Ex: send the json data to the url: http://localhost:3000/api/items?type=mobile
+                Use postman use the above url for post method, pass this json data
+                Code:
+                    const data = await req.json();
+                  
+
+            
+
+
